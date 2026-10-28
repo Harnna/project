@@ -221,13 +221,11 @@ export default function Home() {
           <directionalLight position={[10, 20, 15]} intensity={2.0} />
 
           {!isInside ? (
-            <>
-              <AmericanAirlinesPlane isInside={isInside} />
-              <Environment preset="day" />
-            </>
+            <AmericanAirlinesPlane isInside={isInside} />
           ) : (
             <LightCabinInterior selectedSeat={selectedSeat} onSelectSeat={setSelectedSeat} />
           )}
+          <Environment preset="city" />
 
           <OrbitControls enableZoom={true} maxPolarAngle={Math.PI / 2.1} minDistance={2} maxDistance={16} />
         </Canvas>
