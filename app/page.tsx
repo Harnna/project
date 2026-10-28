@@ -42,7 +42,7 @@ export default function Home() {
 
       {/* Footer */}
       <footer className="border-t border-slate-900 py-6 text-center text-xs text-slate-500">
-        © {new Date().getFullYear()} My Website. Built with Next.js.
+        &copy; {new Date().getFullYear()} My Website. Built with Next.js.
       </footer>
     </div>
   );
