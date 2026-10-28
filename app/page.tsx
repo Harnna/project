@@ -6,73 +6,112 @@ import { OrbitControls, Text, Float, Environment } from "@react-three/drei";
 import * as THREE from "three";
 import { CheckCircle2, Ticket, Sparkles, ArrowLeft, Shield, Wifi, Coffee, Send } from "lucide-react";
 
-// --- American Airlines Style Commercial Boeing Airplane ---
-function AmericanAirlinesPlane({ isInside }: { isInside: boolean }) {
+// --- Իրական Պրոֆեսիոնալ Կոմերցիոն Ինքնաթիռ (Boeing / Airbus Style) ---
+function CommercialJetModel({ isInside }: { isInside: boolean }) {
   const planeRef = useRef<THREE.Group>(null);
 
   useFrame((state) => {
     if (planeRef.current && !isInside) {
-      planeRef.current.rotation.y = state.clock.getElapsedTime() * 0.2;
-      planeRef.current.position.y = Math.sin(state.clock.getElapsedTime() * 1.5) * 0.15;
+      planeRef.current.rotation.y = state.clock.getElapsedTime() * 0.15;
+      planeRef.current.position.y = Math.sin(state.clock.getElapsedTime() * 1.2) * 0.12;
     }
   });
 
   if (isInside) return null;
 
   return (
-    <Float speed={1.5} rotationIntensity={0.15} floatIntensity={0.4}>
-      <group ref={planeRef} rotation={[0, Math.PI / 4, 0]}>
-        {/* Main Fuselage */}
+    <Float speed={1.2} rotationIntensity={0.1} floatIntensity={0.3}>
+      <group ref={planeRef} rotation={[0.1, Math.PI / 4, 0]} scale={[0.9, 0.9, 0.9]}>
+        
+        {/* --- 1. Գլխավոր իրան (Fuselage - Sleek & Aerodynamic) --- */}
         <mesh rotation={[0, 0, Math.PI / 2]}>
-          <cylinderGeometry args={[1.3, 1.1, 11, 32]} />
-          <meshStandardMaterial color="#f1f5f9" roughness={0.15} metalness={0.8} />
+          <cylinderGeometry args={[1.1, 0.9, 12, 48]} />
+          <meshStandardMaterial color="#ffffff" roughness={0.1} metalness={0.9} />
         </mesh>
 
-        {/* Nose Cone */}
-        <mesh position={[5.7, 0, 0]} rotation={[0, 0, -Math.PI / 2]}>
-          <coneGeometry args={[1.1, 1.6, 32]} />
-          <meshStandardMaterial color="#cbd5e1" roughness={0.2} metalness={0.8} />
+        {/* Քիթ (Nose Cone - Rounded & Realistic) */}
+        <mesh position={[6.3, 0, 0]} rotation={[0, 0, -Math.PI / 2]}>
+          <coneGeometry args={[1.1, 1.8, 48]} />
+          <meshStandardMaterial color="#f1f5f9" roughness={0.15} metalness={0.85} />
         </mesh>
 
-        {/* Cockpit Windows */}
-        <mesh position={[5.2, 0.5, 0]} rotation={[0, 0, -Math.PI / 6]}>
-          <boxGeometry args={[0.8, 0.4, 1.2]} />
-          <meshStandardMaterial color="#0f172a" roughness={0.1} />
+        {/* Խցիկի ապակիներ (Cockpit Windows - Dark Tinted Glass) */}
+        <mesh position={[5.8, 0.35, 0]} rotation={[0, 0, -Math.PI / 5]}>
+          <boxGeometry args={[0.7, 0.35, 1.1]} />
+          <meshStandardMaterial color="#0f172a" roughness={0.05} metalness={0.9} />
         </mesh>
 
-        {/* Commercial Wings */}
-        <mesh position={[0.2, -0.2, 0]} rotation={[Math.PI / 2, 0, 0]}>
-          <boxGeometry args={[3.5, 12, 0.12]} />
-          <meshStandardMaterial color="#e2e8f0" roughness={0.2} metalness={0.7} />
+        {/* --- 2. Թևեր (Swept-back Wings with Winglets) --- */}
+        <mesh position={[0.5, -0.1, 0]} rotation={[Math.PI / 2, 0, 0]}>
+          <boxGeometry args={[2.8, 14.5, 0.08]} />
+          <meshStandardMaterial color="#e2e8f0" roughness={0.2} metalness={0.8} />
+        </mesh>
+        
+        {/* Աջ և ձախ վինգլետներ (Wingtips) */}
+        <mesh position={[0.5, 0.1, 7.1]} rotation={[0.2, 0, 0.4]}>
+          <boxGeometry args={[0.4, 0.8, 0.08]} />
+          <meshStandardMaterial color="#dc2626" roughness={0.3} />
+        </mesh>
+        <mesh position={[0.5, 0.1, -7.1]} rotation={[-0.2, 0, -0.4]}>
+          <boxGeometry args={[0.4, 0.8, 0.08]} />
+          <meshStandardMaterial color="#dc2626" roughness={0.3} />
         </mesh>
 
-        {/* American Airlines Styled Flag Tail */}
-        <group position={[-5.0, 1.7, 0]}>
-          <mesh rotation={[0, 0, -Math.PI / 3]}>
-            <boxGeometry args={[2.0, 2.2, 0.1]} />
-            <meshStandardMaterial color="#dc2626" roughness={0.3} />
+        {/* --- 3. Պոչային Համակարգ (Tail Fin & American Airlines Livery) --- */}
+        <group position={[-5.5, 1.8, 0]}>
+          {/* Ուղղահայաց պոչ */}
+          <mesh rotation={[0, 0, -Math.PI / 3.2]}>
+            <boxGeometry args={[1.8, 2.4, 0.08]} />
+            <meshStandardMaterial color="#dc2626" roughness={0.2} />
           </mesh>
-          <mesh position={[0.2, 0.2, 0.06]} rotation={[0, 0, -Math.PI / 3]}>
-            <boxGeometry args={[1.8, 0.4, 0.02]} />
-            <meshStandardMaterial color="#2563eb" />
+          {/* Կապույտ շերտեր պոչին */}
+          <mesh position={[0.2, 0.3, 0.05]} rotation={[0, 0, -Math.PI / 3.2]}>
+            <boxGeometry args={[1.5, 0.4, 0.02]} />
+            <meshStandardMaterial color="#1d4ed8" />
+          </mesh>
+        </group>
+        {/* Հորիզոնական պոչային թևեր */}
+        <mesh position={[-5.3, 0.4, 0]} rotation={[Math.PI / 2, 0, 0]}>
+          <boxGeometry args={[1.2, 4.2, 0.05]} />
+          <meshStandardMaterial color="#f8fafc" roughness={0.2} metalness={0.7} />
+        </mesh>
+
+        {/* --- 4. Ժամանակակից Երկվորյակ Ռեակտիվ Շարժիչներ (Turbofan Engines) --- */}
+        <group position={[0.8, -0.7, 3.2]}>
+          <mesh rotation={[Math.PI / 2, 0, 0]}>
+            <cylinderGeometry args={[0.5, 0.5, 2.5, 32]} />
+            <meshStandardMaterial color="#cbd5e1" metalness={0.95} roughness={0.15} />
+          </mesh>
+          {/* Շարժիչի ներսի մաս (Intake) */}
+          <mesh position={[0, 0, 1.25]}>
+            <ringGeometry args={[0.2, 0.45, 32]} />
+            <meshStandardMaterial color="#0f172a" roughness={0.1} />
           </mesh>
         </group>
 
-        {/* Twin Jet Engines */}
-        <mesh position={[0.5, -0.8, 2.5]} rotation={[Math.PI / 2, 0, 0]}>
-          <cylinderGeometry args={[0.55, 0.55, 2.2, 24]} />
-          <meshStandardMaterial color="#cbd5e1" metalness={0.9} roughness={0.2} />
+        <group position={[0.8, -0.7, -3.2]}>
+          <mesh rotation={[Math.PI / 2, 0, 0]}>
+            <cylinderGeometry args={[0.5, 0.5, 2.5, 32]} />
+            <meshStandardMaterial color="#cbd5e1" metalness={0.95} roughness={0.15} />
+          </mesh>
+          <mesh position={[0, 0, 1.25]}>
+            <ringGeometry args={[0.2, 0.45, 32]} />
+            <meshStandardMaterial color="#0f172a" roughness={0.1} />
+          </mesh>
+        </group>
+
+        {/* --- 5. Կոմերցիոն գծեր և գրառում (Fuselage Stripe) --- */}
+        <mesh position={[0, 0, 0]} rotation={[0, 0, Math.PI / 2]}>
+          <cylinderGeometry args={[1.12, 1.12, 8, 32, 1, true]} />
+          <meshStandardMaterial color="#2563eb" roughness={0.2} transparent opacity={0.8} />
         </mesh>
-        <mesh position={[0.5, -0.8, -2.5]} rotation={[Math.PI / 2, 0, 0]}>
-          <cylinderGeometry args={[0.55, 0.55, 2.2, 24]} />
-          <meshStandardMaterial color="#cbd5e1" metalness={0.9} roughness={0.2} />
-        </mesh>
+
       </group>
     </Float>
   );
 }
 
-// --- Light Theme 3D Seat ---
+// --- Ինտերակտիվ Նստատեղ (3D Cabin Seat) ---
 function LightSeat3D({
   position,
   seatNumber,
@@ -138,7 +177,7 @@ function LightSeat3D({
   );
 }
 
-// --- Light Theme Cabin Interior ---
+// --- Սրահի Ներսում (Cabin Interior) ---
 function LightCabinInterior({
   selectedSeat,
   onSelectSeat,
@@ -218,10 +257,10 @@ export default function Home() {
       <div className="w-full h-full">
         <Canvas camera={{ position: isInside ? [0, 3, 5] : [0, 3, 10], fov: 45 }}>
           <ambientLight intensity={1.8} />
-          <directionalLight position={[10, 20, 15]} intensity={2.0} />
+          <directionalLight position={[10, 20, 15]} intensity={2.5} />
 
           {!isInside ? (
-            <AmericanAirlinesPlane isInside={isInside} />
+            <CommercialJetModel isInside={isInside} />
           ) : (
             <LightCabinInterior selectedSeat={selectedSeat} onSelectSeat={setSelectedSeat} />
           )}
@@ -242,7 +281,7 @@ export default function Home() {
               Book Your Flight in <span className="text-blue-600">Interactive 3D</span>
             </h1>
             <p className="text-slate-600 text-base sm:text-lg mb-8 font-medium">
-              Inspect the full American style aircraft, go inside the cabin, and select your exact seat with live pricing.
+              Inspect the full commercial airliner, go inside the cabin, and select your exact seat with live pricing.
             </p>
             <button
               onClick={() => setIsInside(true)}
