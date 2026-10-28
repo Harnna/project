@@ -4,7 +4,7 @@ import React, { useState, useRef } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls, Text, Float, Environment } from "@react-three/drei";
 import * as THREE from "three";
-import { Plane, CheckCircle2, Ticket, Sparkles, ArrowLeft, Shield, Wifi, Coffee } from "lucide-react";
+import { CheckCircle2, Ticket, Sparkles, ArrowLeft, Shield, Wifi, Coffee, Send } from "lucide-react";
 
 // --- American Airlines Style Commercial Boeing Airplane ---
 function AmericanAirlinesPlane({ isInside }: { isInside: boolean }) {
@@ -22,7 +22,7 @@ function AmericanAirlinesPlane({ isInside }: { isInside: boolean }) {
   return (
     <Float speed={1.5} rotationIntensity={0.15} floatIntensity={0.4}>
       <group ref={planeRef} rotation={[0, Math.PI / 4, 0]}>
-        {/* Main Fuselage (White/Silver Commercial Body) */}
+        {/* Main Fuselage */}
         <mesh rotation={[0, 0, Math.PI / 2]}>
           <cylinderGeometry args={[1.3, 1.1, 11, 32]} />
           <meshStandardMaterial color="#f1f5f9" roughness={0.15} metalness={0.8} />
@@ -52,7 +52,6 @@ function AmericanAirlinesPlane({ isInside }: { isInside: boolean }) {
             <boxGeometry args={[2.0, 2.2, 0.1]} />
             <meshStandardMaterial color="#dc2626" roughness={0.3} />
           </mesh>
-          {/* Blue Accent Stripes */}
           <mesh position={[0.2, 0.2, 0.06]} rotation={[0, 0, -Math.PI / 3]}>
             <boxGeometry args={[1.8, 0.4, 0.02]} />
             <meshStandardMaterial color="#2563eb" />
@@ -89,10 +88,10 @@ function LightSeat3D({
 }) {
   const [hovered, setHovered] = useState(false);
 
-  let color = "#2563eb"; // Light Blue Base
-  if (isBooked) color = "#ef4444"; // Red
-  if (isSelected) color = "#10b981"; // Green
-  if (hovered && !isBooked && !isSelected) color = "#0284c7"; // Sky Blue
+  let color = "#2563eb";
+  if (isBooked) color = "#ef4444";
+  if (isSelected) color = "#10b981";
+  if (hovered && !isBooked && !isSelected) color = "#0284c7";
 
   return (
     <group
@@ -153,7 +152,6 @@ function LightCabinInterior({
 
   return (
     <group position={[0, -1, 0]}>
-      {/* Light Cabin Floor */}
       <mesh position={[0, -0.5, 0]} rotation={[-Math.PI / 2, 0, 0]}>
         <planeGeometry args={[5.5, 18]} />
         <meshStandardMaterial color="#f8fafc" roughness={0.5} />
@@ -191,7 +189,7 @@ export default function Home() {
       <header className="absolute top-0 left-0 w-full z-30 px-8 py-5 flex justify-between items-center bg-white/70 backdrop-blur-xl border-b border-slate-200 shadow-sm">
         <div className="flex items-center gap-3">
           <div className="p-2.5 bg-blue-600 rounded-2xl shadow-md shadow-blue-500/20 text-white">
-            <Plane className="w-6 h-6" />
+            <Send className="w-6 h-6" />
           </div>
           <div>
             <span className="text-xl font-black tracking-wider text-blue-900">
@@ -246,7 +244,7 @@ export default function Home() {
               Book Your Flight in <span className="text-blue-600">Interactive 3D</span>
             </h1>
             <p className="text-slate-600 text-base sm:text-lg mb-8 font-medium">
-              Inspect de full American style aircraft, go inside de cabin, and select ya exact seat with live pricing.
+              Inspect the full American style aircraft, go inside the cabin, and select your exact seat with live pricing.
             </p>
             <button
               onClick={() => setIsInside(true)}
@@ -306,7 +304,7 @@ export default function Home() {
                 <Ticket className="w-10 h-10 text-blue-600 mx-auto mb-3 animate-bounce" />
                 <h4 className="text-lg font-bold text-slate-900 mb-1">Select Seat in 3D</h4>
                 <p className="text-xs text-slate-500">
-                  Click on any available seat inside de cabin to view details.
+                  Click on any available seat inside the cabin to view details.
                 </p>
               </div>
             )}
